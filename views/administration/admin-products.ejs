@@ -1,0 +1,70 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger Produkter</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Redigér</th>
+                    <th>Overskrift</th>
+                    <th>Kategori</th>
+                    <th>Udgivelse</th>
+                    <th>Slet</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %> 
+                <tr>
+                    <td><a href="/admin/rediger-produkt/<%= product.id %>"><i class="fas fa-edit"></i></a></td>
+                    <td><%= product.name %></td>
+                    <td><%= product.category %></td>
+                    <td><%= product.published %></td>
+                    <td><i data-id="<%= product.id %>" data-category="produkter" class="fas fa-trash-alt"></i></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <h2>Opret nyt produkt</h2>
+        <form action="" method="POST" enctype="multipart/form-data" class="postForm">
+            <label>Billede</label>
+            <input name="image" type="file">
+            
+            <label>Overskrift</label>
+            <input name="name" input="text">
+            
+            <label>Beskrivelse</label>
+            <textarea name="description"></textarea>
+
+            <label>Pris </label>
+            <input name="price">
+            
+            <label>Kategori</label>
+            <div name="categories" class="categoryUpdate"></div>
+            
+            <button type="submit">Gem produkt</button>
+        </form>
+	</section>
+</main>
+<script src="/scripts/dynamicSelect.js" ></script>
+<script>
+const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const id = event.target.dataset.id;
+        const category = event.target.dataset.category;
+        fetch(`/admin/${category}/${id}`, {
+            'method': 'DELETE'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+</script>
+<% include ../partials/after-footer.ejs %>

@@ -1,0 +1,79 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger Produkter</h2>
+        <form class="articleItem editForm" action="/admin/produkter">
+                <input type="hidden" name="id" value="<%= product.id %>">
+                <label><img src="../../media/<%= product.image %>" alt="" class="profileImage"></label>
+                <input type="file" class="profileFileSelect" data-imageid="<%= product.id %>">
+                <label>Overskrift</label>
+                <input name="name" input="text" value="<%= product.name %>" >
+                <label>Beskrivelse</label>
+                <textarea name="description"><%= product.description %></textarea>
+                <label>Kategori</label>
+                <div name="categories" class="categoryUpdate"></div>
+                <label>Udgiv</label>
+                <input name="published" input="text" value="<%= product.published %>" disabled >
+                <button type="submit">Opdater</button>
+        </form>
+	</section>
+</main>
+<script src="/scripts/dynamicSelect.js" ></script>
+<script>
+const menuArray = document.querySelectorAll('.articleItem');
+
+menuArray.forEach(file => {
+
+file.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const data = {
+                'id': this.id.value,
+                'name': this.name.value,
+                'description': this.description.value
+            };
+	fetch('/admin/produkter', {
+        method: 'PATCH',
+        headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(data)
+	})
+    .then(response => {
+            if (response.status === 204) {
+                window.location.reload(true);
+            } else {
+                console.log('Noget gik galt');
+            }
+        })
+});
+});
+</script>
+<script>
+const files = document.querySelectorAll('.profileFileSelect');
+files.forEach(file => {
+file.addEventListener('change', function (event) {
+    const product = event.target.dataset.imageid;
+	const formData = new FormData();
+	formData.append('photo', this.files[0]);
+	fetch(`/admin/produkter/image/${product}`, {
+		method: 'PATCH',
+		body: formData
+	})
+		.then(response => {
+			if (response.status === 200) { 
+                return response.json();
+                window.location.reload(true);
+            }
+		})
+		.then(data => {
+			const img = document.querySelector('.profileImage');
+            img.src = `../../media/${data.photo}`;
+            window.location.reload(true);
+		});
+});
+});
+</script>
+<% include ../partials/after-footer.ejs %>

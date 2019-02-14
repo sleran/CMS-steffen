@@ -1,0 +1,27 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<nav class="primaryNavigation" role="navigation">
+        <ul id="mySidenav">
+        
+        <% menus.forEach(menu => { %> 
+            <li><a href="/<%= menu.fk_category %>"><%= menu.name %></a></li>
+        <% }); %>
+        
+        </ul>
+    </nav>
+<main tabindex="0" class="contact" role="main">
+        <h1><%= title %></h1>
+        <p><%= content %></p>
+        <p class="error"><%= (typeof errorMessage != 'undefined') ? errorMessage : '' %></p>
+    <form id="contactForm" action="/kontakt" method="post">
+        <input type="text" name="navn" id="InputNavn" placeholder="Navn" value="<%= (typeof navn != 'undefined') ? navn : '' %>">
+        <p id="FejlBeskedNavn"></p>
+        <input type="text" name="email" id="InputMail" placeholder="Email" value="<%= (typeof email != 'undefined') ? email : '' %>">
+        <p id="FejlBeskedMail"></p>
+        <textarea name="textmessage" rows="8" cols="80" placeholder="Besked" id="besked"><%= (typeof textmessage != 'undefined') ? textmessage : '' %></textarea>
+        <p id="FejlBeskedBesked"></p>
+        <button type="submit" id="InputSend">Send</button>
+    </form>
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

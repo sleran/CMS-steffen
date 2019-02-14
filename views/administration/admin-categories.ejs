@@ -1,0 +1,44 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger kategorier</h2>
+
+        <% categories.forEach(category => { %> 
+        <form class="userItem" action="/admin/kategorier">
+                <i data-id="<%= category.id %>" data-category="kategorier" class="fas fa-trash-alt"></i>
+                <input type="hidden" name="id" value="<%= category.id %>">
+                <label>Navn</label>
+                <input name="name" input="text" value="<%= category.name %>">
+        </form>
+        <% }); %>
+
+        <h2>Opret ny Kategori</h2>
+        <form action="" method="POST">
+            <label>Navn</label>
+            <input name="name" input="text">
+            <button type="submit">Gem kategori</button>
+    </form>
+	</section>
+</main>
+
+<script>
+const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const id = event.target.dataset.id;
+        const category = event.target.dataset.category;
+        fetch(`/admin/${category}/${id}`, {
+            'method': 'DELETE'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+</script>
+<% include ../partials/after-footer.ejs %>

@@ -1,0 +1,24 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<nav class="primaryNavigation" role="navigation">
+	<ul id="mySidenav">
+	
+	<% menus.forEach(menu => { %> 
+		<li><a href="/<%= menu.fk_category %>"><%= menu.name %></a></li>
+	<% }); %>
+	
+	</ul>
+</nav>
+<main tabindex="0" role="main" class="main" id="maincontent">
+	<h1><%= title %></h1>
+	<% articles.forEach(article => { %> 
+		<article>
+			<h2><%= article.name %></h2>
+			<img src="./media/<%= article.image %>" alt="">
+			<p><%= article.content %></p>
+			<p><%= article.fk_author %></p>
+		</article>
+	<% }); %>
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>
