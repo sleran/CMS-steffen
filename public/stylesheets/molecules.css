@@ -46,3 +46,9 @@ button {
     -o-border-radius: 10px;
     background-color: greenyellow;
 }
+
+.userItem,
+.menuItem {
+    display: flex;
+    align-items: center;
+}

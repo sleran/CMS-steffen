@@ -9,6 +9,8 @@ app.get('/admin/brugere', (req,res) => {
 });
 
 app.post('/admin/brugere', (req, res, next) => {
+    console.log(req.fields);
+    
     db.query('INSERT INTO users (user_name, pass, fk_role) VALUES (?, ?, ?)', [req.fields.name, req.fields.pass, req.fields.roleUpdate], (err, result) => {
         if (err) return next(`${err} at db.query (${__filename}:23:5)`);
         res.status(200);

@@ -16,6 +16,14 @@ app.post('/admin/kategorier', (req, res, next) => {
     })
 });
 
+app.patch('/admin/kategorier', (req, res, next) => {
+    db.query('UPDATE categories SET name = ? WHERE id = ?', [req.fields.name, req.fields.id], (err, result) => {        
+        if (err) return next(`${err} at db.query (${__filename}:23:5)`);
+        res.status(204);
+        res.end();
+    })
+});
+
 app.delete('/admin/kategorier/:id', (req, res, next) => {
     db.query(`DELETE FROM categories WHERE id = ?`, [req.params.id], (err, results) => {
         if (err) return next(err);

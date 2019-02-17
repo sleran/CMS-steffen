@@ -5,16 +5,16 @@ module.exports = function (app) {
 
 //admin articles route
 	app.get('/admin/sider', (req,res) => {
-		db.query(`SELECT pages.id, pages.name, content, image, menu.name AS category, users.user_name AS user FROM pages
-		INNER JOIN menu ON pages.fk_category = menu.id
+		db.query(`SELECT pages.id, pages.name, content, image, categories.name AS category, users.user_name AS user FROM pages
+		INNER JOIN categories ON pages.fk_category = categories.id
 		INNER JOIN users ON pages.fk_author = users.id`, (err, pages) => {
             res.render('administration/admin-pages', { 'title': 'Artikler', 'content': 'Opret, slet og redigér', 'pages': pages});
         })
 	});
 
 	app.get('/admin/rediger-side/:id', (req,res) => {
-		db.query(`SELECT pages.id, pages.name, content, image, menu.name AS category, users.user_name AS user FROM pages 
-		INNER JOIN menu ON pages.fk_category = menu.id
+		db.query(`SELECT pages.id, pages.name, content, image, categories.name AS category, users.user_name AS user FROM pages 
+		INNER JOIN categories ON pages.fk_category = categories.id
 		INNER JOIN users ON pages.fk_author = users.id
 		WHERE pages.id = ?`, [req.params.id], (err, pages) => {
             res.render('administration/admin-pages-edit', { 'title': pages[0].name, 'content': 'Redigér artiklen', 'page': pages[0]});

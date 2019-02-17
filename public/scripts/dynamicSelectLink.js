@@ -8,6 +8,13 @@ HTMLElement.prototype.clear = function () {
 const buildCategoryList = function (data, entity) {
 	let select = document.createElement('select');
 	select.setAttribute('name', entity);
+	let defaultOpt = document.createElement('option');
+		defaultOpt.setAttribute('value', '');
+		defaultOpt.setAttribute('selected', '');
+		defaultOpt.setAttribute('hidden', '');
+		defaultOpt.setAttribute('disabled', '');
+		defaultOpt.textContent = 'Vælg';
+		select.appendChild(defaultOpt);
 	data.forEach(element => {
 		let option = document.createElement('option');
 		option.setAttribute('value', element.sanitized_url);

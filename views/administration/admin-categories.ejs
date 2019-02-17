@@ -12,6 +12,7 @@
                 <input type="hidden" name="id" value="<%= category.id %>">
                 <label>Navn</label>
                 <input name="name" input="text" value="<%= category.name %>">
+                <button type="submit">Opdater kategori</button>
         </form>
         <% }); %>
 
@@ -23,7 +24,34 @@
     </form>
 	</section>
 </main>
-
+<script>
+    const menuArray = document.querySelectorAll('.userItem');
+    
+    menuArray.forEach(file => {
+    
+    file.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const data = {
+                    'id': this.id.value,
+                    'name': this.name.value
+                };
+        fetch('/admin/kategorier', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+                if (response.status === 204) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+    });
+    });
+</script>
 <script>
 const deleteButtons = document.querySelectorAll('.fa-trash-alt');
 deleteButtons.forEach(btn => {

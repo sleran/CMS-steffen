@@ -7,7 +7,7 @@
         <h2>Rediger brugere</h2>
 
         <% users.forEach(user => { %> 
-        <form class="userItem" action="/admin/brugere">
+        <form class="userItem " action="/admin/brugere">
                 <i data-id="<%= user.id %>" data-category="brugere" class="fas fa-trash-alt"></i>
                 <input type="hidden" name="id" value="<%= user.id %>">
                 <label>Bruger-navn</label>
@@ -23,7 +23,7 @@
         <% }); %>
 
         <h2>Opret ny bruger</h2>
-        <form action="" method="POST">
+        <form class="userItemAdd" action="" method="POST">
             <label>Bruger-navn</label>
             <input name="name" input="text">
             <label>Password</label>
@@ -31,7 +31,7 @@
             <label>Brugerrolle</label>
             <div name="roles" class="roleUpdate"></div>
             <button type="submit">Gem bruger</button>
-    </form>
+        </form>
 	</section>
 </main>
 <script src="/scripts/dynamicSelect.js" ></script>
@@ -41,11 +41,13 @@
         menuArray.forEach(file => {
         
         file.addEventListener('submit', function (event) {
+            console.log(this);
+            
             event.preventDefault();
             const data = {
                         'id': this.id.value,
                         'name': this.name.value,
-                        'role': this.role.value
+                        'role': this.roleUpdate.value
                     };
             fetch('/admin/brugere', {
                 method: 'PATCH',
