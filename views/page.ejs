@@ -1,14 +1,6 @@
 <% include partials/head.ejs %>
 <% include partials/header.ejs %>
-<nav class="primaryNavigation" role="navigation">
-	<ul id="mySidenav">
-	
-	<% menus.forEach(menu => { %> 
-		<li><a href="/<%= menu.fk_category %>"><%= menu.name %></a></li>
-	<% }); %>
-	
-	</ul>
-</nav>
+<% include partials/navigation.ejs %>
 <main tabindex="0" role="main" class="main" id="maincontent">
 		<article>
 			<h2><%= page.name %></h2>
