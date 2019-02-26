@@ -5,9 +5,10 @@ HTMLElement.prototype.clear = function () {
     return this;
 };
 
-const buildCategoryList = function (data, entity) {
+const buildCategoryList = function (data, entity, id) {
 	let select = document.createElement('select');
 	select.setAttribute('name', entity);
+	select.setAttribute('class', 'ddList');
 	let defaultOpt = document.createElement('option');
 		defaultOpt.setAttribute('value', '');
 		defaultOpt.setAttribute('selected', '');
@@ -18,6 +19,9 @@ const buildCategoryList = function (data, entity) {
 	data.forEach(element => {
 		let option = document.createElement('option');
 		option.setAttribute('value', element.sanitized_url);
+		if (element.sanitized_url == id) {
+			option.setAttribute('selected', '');
+		}
 		option.textContent = element.name;
 		select.appendChild(option);
 
@@ -31,14 +35,14 @@ const getList = function (type,entity) {
       .then(data => { 
         
         document.querySelectorAll( '.' + entity).forEach(element => {
-            element.clear()
+			let id = element.dataset['url'];
+			element.clear()
 			element.appendChild(buildCategoryList(data, entity));
 		})
 	});
 };
 
-getList('categories', 'categoryUpdate');
-getList('roles', 'roleUpdate');
+
 getList('pages', 'pageUpdate');
 
 	

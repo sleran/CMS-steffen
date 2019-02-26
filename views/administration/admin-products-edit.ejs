@@ -14,7 +14,7 @@
                 <label>Beskrivelse</label>
                 <textarea name="description"><%= product.description %></textarea>
                 <label>Kategori</label>
-                <div name="categories" class="categoryUpdate"></div>
+                <div name="categories" class="categoryUpdate" data-cat="<%= product.fk_category %>"></div>
                 <label>Udgiv</label>
                 <input name="published" input="text" value="<%= product.published %>" disabled >
                 <button type="submit">Opdater</button>

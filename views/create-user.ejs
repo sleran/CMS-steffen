@@ -1,0 +1,15 @@
+<% include partials/head %>
+<% include partials/header %>
+
+    <h1><%= title %></h1>
+    <p><%= content %></p>
+        <p class="error"><%= (typeof errorMessage != 'undefined') ? errorMessage : '' %></p>
+    <form class="createUserForm" action="" method="post">
+        <label for="username" id="LabelUsername">Brugernavn:</label><input type="text" name="username" id="InputUsername" placeholder="Brugernavn" value="<%= (typeof username != 'undefined') ? username : '' %>">
+        <label for="password" id="LabelPassword">Kodeord:</label><input type="password" name="password" id="InputPassword" placeholder="Kodeord" value="<%= (typeof password != 'undefined') ? password : '' %>">
+        <input type="hidden" name="guest" value="6">
+        <button type="submit" id="InputSend">Send</button>
+    </form>
+
+<% include partials/footer %>
+<% include partials/after-footer %>

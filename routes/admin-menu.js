@@ -10,7 +10,7 @@ app.get('/admin/menu', (req,res) => {
 });
 
 app.post('/admin/menu', (req, res, next) => {
-    db.query('INSERT INTO menu (name, position, fk_category) VALUES (?, ?, ?)', [req.fields.name, req.fields.position, req.fields.pageUpdate], (err, result) => {
+    db.query('INSERT INTO menu (name, position, fk_category) VALUES (?, ?, ?)', [req.fields.name, req.fields.position, req.fields.pageUpdate || req.fields.custom], (err, result) => {
         if (err) return next(`${err} at db.query (${__filename}:23:5)`);
         res.status(200);
         res.redirect('/admin/menu');

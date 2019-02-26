@@ -14,7 +14,7 @@
             <label>Indhold</label>
             <textarea name="content"><%= page.content %></textarea>
             <label>Kategori</label>
-            <div name="categories" class="categoryUpdate"></div>
+            <div name="categories" class="categoryUpdate" data-cat="<%= page.fk_category %>"></div>
             <label>Forfatter</label>
             <input name="author" input="text" value="<%= page.user %>" disabled >
             <button type="submit">Opdater</button>

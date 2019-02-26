@@ -29,27 +29,36 @@
         </table>
 
         <h2>Opret nyt produkt</h2>
-        <form action="" method="POST" enctype="multipart/form-data" class="postForm">
+        <form action="" method="POST" id="addNewProduct" enctype="multipart/form-data" class="postForm">
             <label>Billede</label>
-            <input name="image" type="file">
+            <input name="image" type="file" id="picture">
             
             <label>Overskrift</label>
-            <input name="name" input="text">
+            <input name="name" id="title" input="text">
             
             <label>Beskrivelse</label>
-            <textarea name="description"></textarea>
+            <textarea name="description" id="content"></textarea>
 
             <label>Pris </label>
-            <input name="price">
+            <input name="price" id="pricetag">
             
             <label>Kategori</label>
             <div name="categories" class="categoryUpdate"></div>
-            
+            <p class="errorMessage"></p>
             <button type="submit">Gem produkt</button>
         </form>
 	</section>
 </main>
 <script src="/scripts/dynamicSelect.js" ></script>
+<script src="/scripts/validator.js"></script>
+<script>
+    // New products validation
+    jsb.validationEmpty('#addNewProduct', '.ddList', 'Vælg kategori!', '.errorMessage');
+    jsb.validationEmpty('#addNewProduct', '#pricetag', 'Skriv pris!', '.errorMessage');
+    jsb.validationEmpty('#addNewProduct', '#content', 'Skriv indhold!', '.errorMessage');
+    jsb.validationEmpty('#addNewProduct', '#title', 'Udfyld titlen!', '.errorMessage');
+    jsb.validationEmpty('#addNewProduct', '#picture', 'Vælg et billede!', '.errorMessage');
+</script>
 <script>
 const deleteButtons = document.querySelectorAll('.fa-trash-alt');
 deleteButtons.forEach(btn => {

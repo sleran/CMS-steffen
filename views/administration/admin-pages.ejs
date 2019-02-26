@@ -29,24 +29,32 @@
             </table>
         
         <h2>Opret ny side</h2>
-        <form action="" method="POST" enctype="multipart/form-data" class="postForm">
+        <form action="" method="POST" id="addNewSite" enctype="multipart/form-data" class="postForm">
             <label>Billede</label>
-            <input name="image" type="file">
+            <input name="image" type="file" id="picture">
             
             <label>Overskrift</label>
-            <input name="name" input="text">
+            <input name="name" id="title" input="text">
             
             <label>Indhold</label>
-            <textarea name="content"></textarea>
+            <textarea name="content" id="articleContent"></textarea>
             
             <label>Kategori</label>
             <div name="categories" class="categoryUpdate"></div>
-            
+            <p class="errorMessage"></p>
             <button type="submit">Gem side</button>
         </form>
 	</section>
 </main>
 <script src="/scripts/dynamicSelect.js" ></script>
+<script src="/scripts/validator.js"></script>
+<script>
+    // New page validation
+    jsb.validationEmpty('#addNewSite', '.ddList', 'Vælg kategori!', '.errorMessage');
+    jsb.validationEmpty('#addNewSite', '#articleContent', 'Skriv indhold!', '.errorMessage');
+    jsb.validationEmpty('#addNewSite', '#title', 'Udfyld titlen!', '.errorMessage');
+    jsb.validationEmpty('#addNewSite', '#picture', 'Vælg et billede!', '.errorMessage');
+</script>
 <script>
 const deleteButtons = document.querySelectorAll('.fa-trash-alt');
 deleteButtons.forEach(btn => {

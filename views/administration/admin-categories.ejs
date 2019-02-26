@@ -7,23 +7,29 @@
         <h2>Rediger kategorier</h2>
 
         <% categories.forEach(category => { %> 
-        <form class="userItem" action="/admin/kategorier">
+        <form id="categoryItem" class="userItem" action="/admin/kategorier">
                 <i data-id="<%= category.id %>" data-category="kategorier" class="fas fa-trash-alt"></i>
                 <input type="hidden" name="id" value="<%= category.id %>">
                 <label>Navn</label>
-                <input name="name" input="text" value="<%= category.name %>">
+                <input id="nameInput" name="name" input="text" value="<%= category.name %>">
                 <button type="submit">Opdater kategori</button>
         </form>
         <% }); %>
 
         <h2>Opret ny Kategori</h2>
-        <form action="" method="POST">
+        <form id="addCategoryItem" action="" method="POST">
+            <p class="errorMessage"></p>
             <label>Navn</label>
-            <input name="name" input="text">
+            <input id="addNameInput" name="name" input="text">
             <button type="submit">Gem kategori</button>
-    </form>
+        </form>
 	</section>
 </main>
+<script src="/scripts/validator.js"></script>
+<script>
+    // New category validation
+    jsb.validationEmpty('#addCategoryItem', '#addNameInput', 'Udfyld et navn!', '.errorMessage');
+</script>
 <script>
     const menuArray = document.querySelectorAll('.userItem');
     

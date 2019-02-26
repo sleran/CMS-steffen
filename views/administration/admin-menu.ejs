@@ -22,19 +22,27 @@
 
         <h2>Opret nyt menupunkt</h2>
         <form class="menuItemAdd" id="addMenuItem" action="" method="POST">
-            <p class="errorMessage"></p>
             <label>Link-navn</label>
             <input name="name" id="nameInput" input="text">
             <label>Position</label>
-            <input name="position" input="text">
+            <input name="position" id="positionInput" input="text">
             <label>Link til: </label>
             <div name="pages" class="pageUpdate"></div>
+            <label>Brugerdefineret link</label>
+            <input name="custom" input="text">
+            <p class="errorMessage"></p>
             <button type="submit">Gem link</button>
     </form>
 	</section>
 </main>
 <script src="/scripts/dynamicSelectLink.js" ></script>
-<script src="/scripts/validation.js"></script>
+<script src="/scripts/validator.js"></script>
+<script>
+// Menu validation
+// TODO Link validation
+jsb.validationEmpty('#addMenuItem', '#positionInput', 'Udfyld en position!', '.errorMessage');
+jsb.validationEmpty('#addMenuItem', '#nameInput', 'Udfyld et navn!', '.errorMessage');
+</script>
 <script>
 const menuArray = document.querySelectorAll('.menuItem');
 

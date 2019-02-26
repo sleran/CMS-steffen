@@ -4,7 +4,10 @@
 <main tabindex="0" role="main" class="loginMain">
 	<section>
 		<h1><%= title %></h1>
-		<form action="/auth/login" method="post">
+		<form action="/auth/login" method="POST">
+			<% if (typeof status != 'undefined') { %>
+				<span class="errorMessage"><%= status %></span>
+			<% } %>
 			<div>
 				<label for="loginForm__username">Brugernavn</label>
 				<input type="text" name="username" id="loginForm__username">
