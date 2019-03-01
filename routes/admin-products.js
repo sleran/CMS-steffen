@@ -12,7 +12,7 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin/rediger-produkt/:id', (req,res) => {
-		db.query(`SELECT products.id, products.name, description, image, categories.name AS category FROM products
+		db.query(`SELECT products.id, products.name, description, image, categories.name AS category, products.fk_category FROM products
 		INNER JOIN categories ON products.fk_category = categories.id
 		WHERE products.id = ?`, [req.params.id], (err, products) => {
             res.render('administration/admin-products-edit', { 'title': products[0].name, 'content': 'hej med dig', 'product': products[0]});
@@ -42,7 +42,7 @@ module.exports = function (app) {
 	});
 
 	app.patch('/admin/produkter', (req, res, next) => {
-		db.query('UPDATE products SET name = ?, description = ? WHERE id = ?', [req.fields.name, req.fields.description, req.fields.id], (err, result) => {
+		db.query('UPDATE products SET name = ?, description = ?, fk_category = ? WHERE id = ?', [req.fields.name, req.fields.description, req.fields.categoryUpdate, req.fields.id], (err, result) => {
 			if (err) return next(`${err} at db.query (${__filename}:23:5)`);
 			res.status(204);
 			res.end();

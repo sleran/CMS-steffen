@@ -5,17 +5,18 @@
 	<section>
         <h1><%= title %></h1>
         <h2>Rediger menupunkt</h2>
-
         <% menus.forEach(menu => { %> 
         <form class="menuItem" action="/admin/menu">
                 <i data-id="<%= menu.id %>" data-category="menu" class="fas fa-trash-alt"></i>
                 <input type="hidden" name="id" value="<%= menu.id %>">
                 <label>Link-navn</label>
-                <input name="name" input="text" value="<%= menu.name %>" >
+                <input name="name" input="text" class="nameInputs" value="<%= menu.name %>" >
                 <label>Position</label>
-                <input name="position" input="text" value="<%= menu.position %>" >
+                <input name="position" input="text" class="positionInputs" value="<%= menu.position %>" >
                 <label>Link til: </label>
                 <div name="pages" class="pageUpdate"></div>
+                <label>Brugerdefineret link</label>
+                <input name="custom" input="text" value="<%= menu.fk_category %>">
                 <button type="submit">Opdater</button>
         </form>
         <% }); %>
@@ -39,9 +40,11 @@
 <script src="/scripts/validator.js"></script>
 <script>
 // Menu validation
-// TODO Link validation
 jsb.validationEmpty('#addMenuItem', '#positionInput', 'Udfyld en position!', '.errorMessage');
 jsb.validationEmpty('#addMenuItem', '#nameInput', 'Udfyld et navn!', '.errorMessage');
+// Menu validation for updateForms
+jsb.validationEmpty('.menuItem', '.positionInputs', 'Udfyld en position!', '.errorMessage');
+jsb.validationEmpty('.menuItem', '.nameInputs', 'Udfyld et navn!', '.errorMessage');
 </script>
 <script>
 const menuArray = document.querySelectorAll('.menuItem');
@@ -54,7 +57,9 @@ file.addEventListener('submit', function (event) {
                 'id': this.id.value,
                 'name': this.name.value,
                 'position': this.position.value,
-                'pageUpdate': this.pageUpdate.value
+                'pageUpdate': this.pageUpdate.value,
+                'custom': this.custom.value
+
             };
 	fetch('/admin/menu', {
         method: 'PATCH',

@@ -16,8 +16,7 @@
                 <input name="pass" input="text" type="password" value="<%= user.pass %>" disabled>
                 <label>Brugerrolle</label>
                 <div name="roles" class="roleUpdate"></div>
-                <!-- <label>Brugerrolle</label>
-                <input name="role" input="text" value="<%= user.fk_role %>"> -->
+                
                 <button type="submit">Opdater</button>
         </form>
         <% }); %>
@@ -39,7 +38,7 @@
 <script src="/scripts/validator.js"></script>
 <script>
     // New user validation
-    // TODO Brugerrolle validation
+    jsb.validationEmpty('#addUser', '.ddList', 'Vælg brugerrolle!', '.errorMessage');
     jsb.validationEmpty('#addUser', '#password', 'Udfyld et password!', '.errorMessage');
     jsb.validationEmpty('#addUser', '#username', 'Udfyld et brugernavn!', '.errorMessage');
 </script>

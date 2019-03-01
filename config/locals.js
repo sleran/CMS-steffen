@@ -6,7 +6,7 @@ module.exports = function (app) {
 		app.locals.site = results[0];
 	});
 
-	db.query(`SELECT * FROM cms.menu`, (err, results) => {
+	db.query(`SELECT * FROM cms.menu ORDER BY position`, (err, results) => {
 		if (err) console.log(err);
 		app.locals.menus = results;		
 	});

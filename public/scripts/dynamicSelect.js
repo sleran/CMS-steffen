@@ -5,8 +5,11 @@ HTMLElement.prototype.clear = function () {
     return this;
 };
 
-// TODO - Send valgt id med til PATCH routes, er indsat, men virker ikke
+
+// Forslag: Omdøb "entity" til "formInputName"
+
 const buildCategoryList = function (data, entity, id) {
+
 	let select = document.createElement('select');
 	select.setAttribute('name', entity);
 	select.setAttribute('class', 'ddList');

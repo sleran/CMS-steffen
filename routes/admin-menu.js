@@ -18,7 +18,7 @@ app.post('/admin/menu', (req, res, next) => {
 });
 
 app.patch('/admin/menu', (req, res, next) => {
-    db.query('UPDATE menu SET name = ?, position = ?, fk_category = ? WHERE id = ?', [req.fields.name, req.fields.position, req.fields.pageUpdate, req.fields.id], (err, result) => {
+    db.query('UPDATE menu SET name = ?, position = ?, fk_category = ? WHERE id = ?', [req.fields.name, req.fields.position, req.fields.pageUpdate || req.fields.custom, req.fields.id], (err, result) => {
         console.log(req.fields);
         
         if (err) return next(`${err} at db.query (${__filename}:23:5)`);

@@ -8,7 +8,7 @@ module.exports = function (app) {
 		db.query(`SELECT pages.id, pages.name, content, image, categories.name AS category, users.user_name AS user FROM pages
 		INNER JOIN categories ON pages.fk_category = categories.id
 		INNER JOIN users ON pages.fk_author = users.id`, (err, pages) => {
-            res.render('administration/admin-pages', { 'title': 'Artikler', 'content': 'Opret, slet og redigér', 'pages': pages});
+            res.render('administration/admin-pages', { 'title': 'Sider', 'content': 'Opret, slet og redigér', 'pages': pages});
         })
 	});
 

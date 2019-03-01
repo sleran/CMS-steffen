@@ -32,7 +32,8 @@ file.addEventListener('submit', function (event) {
     const data = {
                 'id': this.id.value,
                 'name': this.name.value,
-                'description': this.description.value
+                'description': this.description.value,
+                'categoryUpdate': this.categoryUpdate.value
             };
 	fetch('/admin/produkter', {
         method: 'PATCH',
