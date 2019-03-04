@@ -15,7 +15,7 @@
                 <label>Password</label>
                 <input name="pass" input="text" type="password" value="<%= user.pass %>" disabled>
                 <label>Brugerrolle</label>
-                <div name="roles" class="roleUpdate"></div>
+                <div name="roles" class="roleUpdate" data-cat="<%= user.fk_role %>"></div>
                 
                 <button type="submit">Opdater</button>
         </form>

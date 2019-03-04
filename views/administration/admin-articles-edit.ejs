@@ -12,7 +12,7 @@
             <label>Overskrift</label>
             <input name="name" input="text" value="<%= article.name %>" >
             <label>Indhold</label>
-            <textarea name="content"><%= article.content %></textarea>
+            <textarea name="content" id="articleContent"><%= article.content %></textarea>
             <label>Kategori</label>
             <div name="categories" class="categoryUpdate" data-cat="<%= article.fk_category %>"></div>
             <label>Forfatter</label>
@@ -20,6 +20,11 @@
             <button type="submit">Opdater</button>
         </form>
     </main>
+    <script>
+    $(document).ready(function() {
+        $('#articleContent').summernote();
+    });
+    </script>
     <script src="/scripts/dynamicSelect.js" ></script>
     <script>
     const menuArray = document.querySelectorAll('.articleItem');
@@ -31,7 +36,8 @@
         const data = {
                     'id': this.id.value,
                     'name': this.name.value,
-                    'content': this.content.value
+                    'content': this.content.value,
+                    'categoryUpdate': this.categoryUpdate.value
                 };
         fetch('/admin/artikler', {
             method: 'PATCH',

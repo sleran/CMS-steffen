@@ -13,9 +13,9 @@ module.exports = function (app) {
 
 	//admin route
 	app.get('/admin', (req,res) => {
-		db.query(`SELECT hero_image, header_1, header_2, header_3, text_1, text_2, text_3 FROM landdrupdb.frontpage_content`, (err, results) => {
+		db.query(`SELECT * FROM globals`, (err, results) => {
 			if (err) res.send(err);
-			res.render('administration/admin', { 'title': 'Velkommen', 'results': results });
+			res.render('administration/admin', { 'title': 'Velkommen', 'results': results[0] });
 		})
 	});
 

@@ -31,7 +31,8 @@
         const data = {
                     'id': this.id.value,
                     'name': this.name.value,
-                    'content': this.content.value
+                    'content': this.content.value,
+                    'categoryUpdate': this.categoryUpdate.value
                 };
         fetch('/admin/sider', {
             method: 'PATCH',

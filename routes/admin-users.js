@@ -3,7 +3,7 @@ const db = require('../config/database')();
 module.exports = function (app) {
 //admin users route
 app.get('/admin/brugere', (req,res) => {
-    db.query(`SELECT * FROM users`, (err, users) => {
+    db.query(`SELECT id, user_name, pass, fk_role FROM users`, (err, users) => {
         res.render('administration/admin-users', { 'title': 'Brugere', 'content': 'Opret, slet og redigér', 'users': users});
     })
 });

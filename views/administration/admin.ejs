@@ -4,7 +4,14 @@
 <main role="main" class="adminPage">
 	<section>
 		<h1><%= title %></h1>
-		
+		<h2>Sitets indsillinger</h2>
+        <form class="articleItem editForm" action="/admin/sider">
+            <label>Sitets navn</label>
+            <input name="name" input="text" value="<%= results.name %>" >
+            <label>Sitets beskrivelse</label>
+            <input name="author" input="text" value="<%= results.description %>">
+            <button type="submit">Opdater</button>
+        </form>
 	</section>
 </main>
 <script>

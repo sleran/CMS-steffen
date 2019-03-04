@@ -13,7 +13,7 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin/rediger-artikel/:id', (req,res) => {
-		db.query(`SELECT articles.id, articles.name, content, image, categories.name AS category, users.user_name AS user FROM articles 
+		db.query(`SELECT articles.id, articles.name, content, image,fk_category, categories.name AS category, users.user_name AS user FROM articles 
 		INNER JOIN categories ON articles.fk_category = categories.id
 		INNER JOIN users ON articles.fk_author = users.id
 		WHERE articles.id = ?`, [req.params.id], (err, articles) => {
@@ -46,7 +46,7 @@ module.exports = function (app) {
 	});
 
 	app.patch('/admin/artikler', (req, res, next) => {
-		db.query('UPDATE articles SET name = ?, content = ? WHERE id = ?', [req.fields.name, req.fields.content, req.fields.id], (err, result) => {
+		db.query('UPDATE articles SET name = ?, content = ?, fk_category = ? WHERE id = ?', [req.fields.name, req.fields.content, req.fields.categoryUpdate, req.fields.id], (err, result) => {
 			if (err) return next(`${err} at db.query (${__filename}:23:5)`);
 			res.status(204);
 			res.end();

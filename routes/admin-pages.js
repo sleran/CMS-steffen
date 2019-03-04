@@ -13,7 +13,7 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin/rediger-side/:id', (req,res) => {
-		db.query(`SELECT pages.id, pages.name, content, image, categories.name AS category, users.user_name AS user FROM pages 
+		db.query(`SELECT pages.id, pages.name, content, image, fk_category, categories.name AS category, users.user_name AS user FROM pages 
 		INNER JOIN categories ON pages.fk_category = categories.id
 		INNER JOIN users ON pages.fk_author = users.id
 		WHERE pages.id = ?`, [req.params.id], (err, pages) => {

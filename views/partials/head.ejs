@@ -7,7 +7,51 @@
     <meta name="description" content="Metabeskrivelse">
 	<title><%= site.name %></title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-	<link rel="manifest" href="/manifest.webmanifest">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <!-- summerNote -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	<style>
+	body {
+    font-family: 'Pontano Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#adminWrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 20px minmax(15em, auto);
+}
+
+.adminSiteHeader {
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: orange;
+}
+
+.adminPrimaryNavigation {
+    grid-column: 1/2;
+    grid-row: 2/-1;
+    background-color: greenyellow;
+}
+
+.adminPage {
+    grid-column: 2/-1;
+    grid-row: 2/-1;
+    padding: 2em;
+}
+	</style>
 </head>
 <body>
 	<div id="wrapper">
