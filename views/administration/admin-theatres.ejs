@@ -1,0 +1,69 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger sale</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Redigér</th>
+                        <th>Sal</th>
+                        <th>Rækker</th>
+                        <th>Sæder</th>
+                        <th>Gang</th>
+                        <th>Beskrivelse</th>
+                        <th>Slet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% theatres.forEach(theatre => { %> 
+                    <tr>
+                        <td><a href="/admin/rediger-sale/<%= theatre.id %>"><i class="fas fa-edit"></i></a></td>
+                        <td><%= theatre.name %></td>
+                        <td><%= theatre.rowCount %></td>
+                        <td><%= theatre.seatCount %></td>
+                        <td><%= theatre.aisle %></td>
+                        <td><%= theatre.description %></td>
+                        <td><i data-id="<%= theatre.id %>" data-category="theatres" class="fas fa-trash-alt"></i></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+        <h2>Opret ny sal</h2>
+            <form action="" method="POST" id="addNewArticle" class="postForm">
+                <div class="theatreInfo">
+                    <label>Sal</label>
+                    <input name="name" id="title" input="text">
+
+                    <label>Gang</label>
+                    <input name="aisle" id="aisle" input="text">
+                    
+                    <label>Beskrivelse</label>
+                    <textarea name="description" id="description"></textarea>            
+                </div>
+                <p class="errorMessage"></p>
+                <button type="submit">Videre</button>
+            </form>
+	</section>
+</main>
+<script>
+const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const id = event.target.dataset.id;
+        const category = event.target.dataset.category;
+        fetch(`/admin/${category}/${id}`, {
+            'method': 'DELETE'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+</script>
+<% include ../partials/after-footer.ejs %>

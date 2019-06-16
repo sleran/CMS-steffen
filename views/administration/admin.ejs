@@ -5,16 +5,41 @@
 	<section>
 		<h1><%= title %></h1>
 		<h2>Sitets indsillinger</h2>
-        <form class="articleItem editForm" action="/admin/sider">
+        <form class="articleItem editForm" action="/admin/globals">
             <label>Sitets navn</label>
             <input name="name" input="text" value="<%= results.name %>" >
             <label>Sitets beskrivelse</label>
-            <input name="author" input="text" value="<%= results.description %>">
+            <input name="description" input="text" value="<%= results.description %>">
             <button type="submit">Opdater</button>
         </form>
 	</section>
 </main>
 <script>
-
+const menuArray = document.querySelectorAll('.articleItem');
+    
+    menuArray.forEach(file => {
+    
+    file.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const data = {
+                    'name': this.name.value,
+                    'description': this.description.value
+                };
+        fetch('/admin/globals', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+                if (response.status === 204) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+    });
+    });
 </script>
 <% include ../partials/after-footer.ejs %>

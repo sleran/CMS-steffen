@@ -72,7 +72,6 @@ file.addEventListener('change', function (event) {
 		.then(data => {
 			const img = document.querySelector('.profileImage');
             img.src = `../../media/${data.photo}`;
-            window.location.reload(true);
 		});
 });
 });

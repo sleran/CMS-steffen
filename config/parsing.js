@@ -9,5 +9,7 @@ module.exports = function (app) {
     //     'extended': true
     // }));                                // Accept extended form elements in requests
 
-    app.use(formidable());				//parsing form data   
+    app.use(formidable({
+        multiples: true
+    }));				//parsing form data   
 };

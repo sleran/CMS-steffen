@@ -1,0 +1,27 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <p><%= content %></p>
+        <h2>Rediger, upload og slet billeder</h2>
+        <h3>Upload billede(r)</h3>
+        <form action="" method="POST" id="addNewArticle" enctype="multipart/form-data" class="postForm">
+            <label>Billede</label>
+            <input name="images" id="picture" type="file" multiple>
+            <p class="errorMessage"></p>
+            <button type="submit">Gem billede(r)</button>
+        </form>
+        <div class="imageList">
+            <% images.forEach(image => { %> 
+            <div class="imageContainer">
+                <a href="/admin/billeder/<%= image.name %>"><i class="fas fa-edit"></i></a>
+                <img src="/media/<%= image.name %>" alt="">
+                <a href="/admin/billeder/<%= image.name %>?action=delete"><i class="fas fa-trash-alt"></i></a>
+            </div>
+            <% }); %>
+        </div>
+    </section>
+</main>
+<% include ../partials/after-footer.ejs %>

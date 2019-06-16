@@ -51,31 +51,31 @@ const menuArray = document.querySelectorAll('.menuItem');
 
 menuArray.forEach(file => {
 
-file.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const data = {
-                'id': this.id.value,
-                'name': this.name.value,
-                'position': this.position.value,
-                'pageUpdate': this.pageUpdate.value,
-                'custom': this.custom.value
+    file.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const data = {
+                    'id': this.id.value,
+                    'name': this.name.value,
+                    'position': this.position.value,
+                    'pageUpdate': this.pageUpdate.value,
+                    'custom': this.custom.value
 
-            };
-	fetch('/admin/menu', {
-        method: 'PATCH',
-        headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(data)
-	})
-    .then(response => {
-            if (response.status === 204) {
-                window.location.reload(true);
-            } else {
-                console.log('Noget gik galt');
-            }
+                };
+        fetch('/admin/menu', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
-});
+        .then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+    });
 });
 </script>
 <script>

@@ -1,0 +1,108 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger salens rækker</h2>
+        <div class="theatreRows">
+            <a href="#" class="addRows">Tilføj række</a>
+            <div class="theatreMap">
+                <p class="theatreFront">Scene/display</p>
+        
+            </div>
+        </div>
+	</section>
+</main>
+<script>
+    let rows=[];
+    let rowNumber = 0;
+    
+        document.querySelector('.addRows').addEventListener('click', function(){
+            event.preventDefault();
+            const id = window.location.href.split('/').pop();
+            rowNumber += 1;
+            const data = {
+                        'name': rowNumber,
+                        'theatre': id
+                    };
+    
+            fetch('/admin/raekker', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.text();
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+            .then(data => {
+                let insertRowId = JSON.parse(data).insertId;
+                console.log(insertRowId);
+                let theatreMap = document.querySelector('.theatreMap');
+
+                let rowForMap = document.createElement('div');
+                rowForMap.setAttribute('class', 'row');
+                rowForMap.setAttribute('data-rowId', insertRowId);
+                rowForMap.textContent = rowNumber;
+
+                theatreMap.appendChild(rowForMap);
+                
+                let seatNumber = 0;
+                rowForMap.addEventListener('click', function(event){
+                    console.log(this.dataset.rowid);
+                    
+                    let rowNumber = this.dataset.rowid;
+                    seatNumber += 1;
+
+                    const data = {
+                                'seat': seatNumber,
+                                'rowNumber': rowNumber
+                            };
+            
+                    fetch('/admin/pladser', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(data => {
+                        let seatForRow = document.createElement('div');
+                        seatForRow.setAttribute('class', 'seat');
+                        seatForRow.setAttribute('id', seatNumber);
+                        seatForRow.textContent = seatNumber;
+
+                        this.appendChild(seatForRow);
+                        })
+                    });
+                })
+        });
+
+    
+    </script>
+
+    
+<script>
+const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const id = event.target.dataset.id;
+        const category = event.target.dataset.category;
+        fetch(`/admin/${category}/${id}`, {
+            'method': 'DELETE'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+</script>
+<% include ../partials/after-footer.ejs %>

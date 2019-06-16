@@ -48,8 +48,6 @@
         menuArray.forEach(file => {
         
         file.addEventListener('submit', function (event) {
-            console.log(this);
-            
             event.preventDefault();
             const data = {
                         'id': this.id.value,

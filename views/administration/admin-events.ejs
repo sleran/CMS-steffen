@@ -1,0 +1,106 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger Event</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Redigér</th>
+                        <th>Overskrift</th>
+                        <th>Start</th>
+                        <th>Slut</th>
+                        <th>Pris</th>
+                        <th>Kategori</th>
+                        <th>Sal</th>
+                        <th>Slet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% events.forEach(event => { %> 
+                    <tr>
+                        <td><a href="/admin/rediger-event/<%= event.id %>"><i class="fas fa-edit"></i></a></td>
+                        <td><%= event.name %></td>
+                        <td><%= momento(event.starts).format('LLLL'); %></td>
+                        <td><%= momento(event.ends).format('LLLL'); %></td>
+                        <td><%= event.price %></td>
+                        <td><%= event.category %></td>
+                        <td><%= event.theatre %></td>
+                        <td><i data-id="<%= event.id %>" data-category="events" class="fas fa-trash-alt"></i></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        
+
+     
+
+        <h2>Opret nyt event</h2>
+        <form action="" method="POST" id="addNewArticle" enctype="multipart/form-data" class="postForm">
+            <label>Billede</label>
+            <input name="image" id="picture" type="file">
+            
+            <label>Overskrift</label>
+            <input name="name" id="title" input="text">
+
+            <label>Starter</label>
+            <input name="starts" id="start" class="datePick" type="text" placeholder="Hvornår starter eventet">
+
+            <label>Slutter</label>
+            <input name="ends" id="end" class="datePick" type="text" placeholder="Hvornår slutter eventet">
+
+            <label>Pris</label>
+            <input name="price" id="pricetag" input="text">
+            
+            <label>Beskrivelse</label>
+            <textarea name="content" id="articleContent"></textarea>
+            
+            <label>Kategori</label>
+            <div name="categories" class="categoryUpdate"></div>
+            
+
+            <label>Lokation</label>
+            <div name="theatre" class="theatreUpdate"></div>
+            
+            <p class="errorMessage"></p>
+            <button type="submit">Gem event</button>
+        </form>
+	</section>
+</main>
+<script src="/scripts/dynamicSelect.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/da.js"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+
+<script>
+flatpickr.l10ns.default.firstDayOfWeek = 1;
+flatpickr(".datePick", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    minDate: "today",
+    "locale": "da",
+    time_24hr: true
+});
+
+</script>
+<script>
+const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const id = event.target.dataset.id;
+        const category = event.target.dataset.category;
+        fetch(`/admin/${category}/${id}`, {
+            'method': 'DELETE'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+</script>
+<% include ../partials/after-footer.ejs %>

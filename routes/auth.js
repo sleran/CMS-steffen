@@ -10,16 +10,23 @@ module.exports = function (app) {
 	});
 
 	app.post('/auth/login', (req, res, next) => {
-
-		db.query('SELECT id, pass, user_name FROM users WHERE user_name = ?', [req.fields.username], (err, result) => {
-			if (err) return next(`${err} at db.query (${__filename}:9:5)`);
+		db.query(`SELECT users.id, users.pass, user_name, roles.name AS role FROM users 
+		INNER JOIN roles ON roles.id = users.fk_role
+		WHERE user_name = ?`, [req.fields.username], (err, result) => {
+			if (err) return next(`${err} at db.query (${__filename}:13:9)`);
 			if (result.length !== 1) {				
 				res.redirect('/login?status=badcredentials');
 				return;
 			} else if (bcrypt.compareSync(req.fields.passphrase, result[0].pass)) {
 				req.session.user = result[0].id;
-				res.redirect('/admin');
-				res.end();
+				req.session.role = result[0].role;
+
+				if (req.session.role == 'Super admin')
+					res.redirect('/admin');
+				else if (req.session.role == 'User')
+					res.redirect('/profil');
+				else
+					res.redirect('/');
 			} else {
 				res.redirect('/login?status=badcredentials');
 				return;
@@ -32,20 +39,3 @@ module.exports = function (app) {
 		res.redirect('/');
 	});
 };
-
-// , (err, results) => {
-// 	if (err) return next(`${err} at db.query (${__filename}:9:5)`);
-// 	if (results) {
-// 		console.log(req.session.user);
-// 		req.session.user = result[0].id;
-// 		res.redirect('/admin');
-// 		res.end();
-// 	} else {
-// 		res.redirect('/login?status=badcredentials');
-// 		res.end();
-// 	}
-// })
-// } else {
-// res.redirect('/login?status=badcredentials');
-// return;
-// 

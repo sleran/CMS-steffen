@@ -12,12 +12,15 @@ let jsb = {
                     if (input.value == '') {
                         event.preventDefault();
                         errorHandling = false;
-                        input.style.border = "red solid 2px";
-                        outputField.style.padding = "0.5em 2em";
+                        input.classList.add('errorInput');
+                        outputField.classList.add('errorMessageShow');
                         inputErrorText = errorText;
                         return outputField.textContent = inputErrorText;
                     } else {
                         errorHandling = true;
+                        input.classList.remove('errorInput');
+                        outputField.classList.remove('errorMessageShow');
+                        return outputField.textContent = '';
                     }
                 }
                 // Tjekker om inputElementer er class eller id
@@ -32,6 +35,7 @@ let jsb = {
                         checkForEmptyValue(input);
                     }
             });
+                       
         }
 
         // Tjekker om formElementer er class eller id 

@@ -1,0 +1,64 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger sal</h2>
+        <form class="articleItem editForm" action="/admin/theatres">
+            <input type="hidden" name="id" value="<%= theatre.id %>">
+
+            <label>Sal</label>
+            <input name="name" id="title" input="text" value="<%= theatre.name %>">
+
+            <label>Rækker</label>
+            <input name="rows" id="rows" type="number" min="1" max="100" value="<%= theatre.name %>">
+
+            <label>Sæder pr. række</label>
+            <input name="seats" id="seats" type="number" min="1" max="100" value="<%= theatre.name %>">
+
+            <label>Gang</label>
+            <input name="aisle" id="aisle" input="text" value="<%= theatre.name %>">
+            
+            <label>Beskrivelse</label>
+            <textarea name="description" id="description" value="<%= theatre.name %>"></textarea>    
+
+            <button type="submit">Opdater</button>
+        </form>
+    </section>
+</main>
+
+    <script>
+    const menuArray = document.querySelectorAll('.articleItem');
+    
+    menuArray.forEach(file => {
+    
+    file.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const data = {
+                    'id': this.id.value,
+                    'name': this.name.value,
+                    'rows': this.rows.value,
+                    'seats': this.seats.value,
+                    'aisle': this.aisle.value,
+                    'description': this.description.value
+                };
+        fetch('/admin/theatres', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+                if (response.status === 204) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+    });
+    });
+    </script>
+   
+    <% include ../partials/after-footer.ejs %>

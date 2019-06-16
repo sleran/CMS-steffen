@@ -23,7 +23,7 @@
     z-index:999;
 }
 
-.errorMessage {
+.errorMessageShow {
     max-width: 400px;
     background-color: red;
     color: #fff;
@@ -32,8 +32,25 @@
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
+    padding: 0.5em 2em;
 }
-
+.errorInput {
+    border: red solid 2px;
+}
+.successMessageShow {
+    max-width: 400px;
+    background-color: greenyellow;
+    color: #fff;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 0.5em 2em;
+}
+.successInput {
+    border: greenyellow solid 2px;
+}
 img {
     width: 2em;
     height: auto;

@@ -33,11 +33,9 @@ module.exports = function (app) {
         if (success) {
             db.query(`INSERT INTO users SET user_name = ?, pass = ?, fk_role = (SELECT id FROM roles WHERE level = 1)`, [req.fields.username, hashed_kodeord], function (err, result) {
                 if (err) {
-                    return res.send(err);
+                    return next(`${err} at db.query (${__filename}:34:9)`);
                 }
-                req.session.user = result.insertId
-                console.log(req.session.user);
-                
+                req.session.user = result.insertId                
                 res.redirect('/admin');
             })
         }

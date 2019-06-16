@@ -47,6 +47,7 @@ const getList = function (type,entity) {
 
 getList('categories', 'categoryUpdate');
 getList('roles', 'roleUpdate');
+getList('theatres', 'theatreUpdate');
 
 	
 // HTMLElement.prototype.clear = function () {

@@ -1,0 +1,16 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+        <h1><%= title %></h1>
+        <h2>Rediger billede</h2>
+        <a href="/admin/billeder/<%= image %>?action=delete"><i class="fas fa-trash-alt"></i></a>
+        <form class="articleItem editForm" action="/admin/billeder/<%= image %>" method="POST">
+            <input type="file" class="profileFileSelect">
+            <button type="submit">Opdater</button>
+        </form>
+        <img src="/media/<%= image %>" alt="">
+    </section>
+</main>
+<% include ../partials/after-footer.ejs %>
